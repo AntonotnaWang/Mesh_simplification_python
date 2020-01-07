@@ -1,5 +1,5 @@
 # Mesh_simplification_python
-A implementation of mesh simplification algorithm ([1]) using python
+An implementation of mesh simplification algorithm ([1]) using python
 
 System requirement: python 3.7, numpy, and argparse.
 
