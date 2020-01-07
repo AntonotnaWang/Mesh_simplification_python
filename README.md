@@ -5,7 +5,7 @@ System requirement: python 3.7, numpy, and argparse.
 
 How to run the program:
 
-You can run the program by typing:
+You can run the program by:
 python mesh_simplify.py -i [input file path] -o [output file path] -r [simplification ratio (0~1)] -t [threshold parameter]
 
 For example, run:
