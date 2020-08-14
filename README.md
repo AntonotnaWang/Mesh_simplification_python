@@ -4,7 +4,7 @@ An implementation of mesh simplification algorithm ([1]) using python
 ## Requirement
 python 3.7, numpy, and argparse.
 
-## How to run the program:
+## How to run the code
 ```python mesh_simplify.py -i [input file path] -o [output file path] -r [simplification ratio (0~1)] -t [threshold parameter]```
 
 For example:
