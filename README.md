@@ -1,6 +1,8 @@
 # Mesh simplification using python
 An implementation of mesh simplification algorithm ([1]) using python
 
+![dinosaur](sample_img.png)
+
 ## Requirement
 python 3.7, numpy, and argparse.
 
