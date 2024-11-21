@@ -1,25 +1,38 @@
-# -*- coding: utf-8 -*-
-"""
-@author: Anton Wang
-"""
-
 import argparse
 import numpy as np
+import os
 
-parser=argparse.ArgumentParser(description='Mesh simplify')
-parser.add_argument('-i', type=str, default=None, help='Please provide the input file path of an existing 3d model.')
-parser.add_argument('-o', type=str, default=None, help='Please provide the output file path of the simplified model.')
-parser.add_argument('-r', type=np.float, default=0.5, help='Simplification ratio (0<r<=1).')
-parser.add_argument('-t', type=np.float, default=0, help='Threshold parameter for valid pair selection (>=0).')
-args=parser.parse_args()
+# parser=argparse.ArgumentParser(description='Mesh simplify')
+# parser.add_argument('-i', type=str, default=None, help='Please provide the input file path of an existing 3d model.')
+# parser.add_argument('-o', type=str, default=None, help='Please provide the output file path of the simplified model.')
+# parser.add_argument('-r', type=np.float32, default=0.5, help='Simplification ratio (0<r<=1).')
+# parser.add_argument('-t', type=np.float32, default=0, help='Threshold parameter for valid pair selection (>=0).')
+# args=parser.parse_args()
 
-input_filepath=args.i
-output_filepath=args.o
-threshold=args.t
-simplify_ratio=args.r
+# input_filepath=args.i
+# output_filepath=args.o
+# threshold=args.t
+# simplify_ratio=args.r
+
+input_filepath='models/kitten.obj'
+output_filepath='kitten_simp_01_1.obj'
+threshold=np.float32(1)
+simplify_ratio=np.float32(0.01)
+
+# input_filepath='models/kitten.obj'
+# output_filepath='kitten_simp_01_1.obj'
+# threshold=np.float32(1)
+# simplify_ratio=np.float32(0.01)
+# python mesh_simplify.py -i models/Venus.obj -o Venus_simp_01_1.obj -r 0.01 -t 1
+# simplification = [0.3,0.1,0.01]
+# for file_name in os.listdir("models"):
+#     if file_name.endswith('.obj'):  # Process only .obj files (or other extensions as needed)
+#         input_filepath = os.path.join("models/", file_name)
+#         for simplify_ratio in simplification:
+#             threshold = 1
+#             output_filepath = "output/" + os.path.splitext(file_name)[0] + f'_simp_{int(simplify_ratio*100)}_{threshold}.obj'
 
 from class_mesh_simplify import mesh_simplify
-
 # Here, point and vertex are same terms
 # Read 3d model, initialization (points/vertices, faces, edges), compute the Q matrices for all the initial vertices
 model=mesh_simplify(input_filepath, threshold, simplify_ratio)

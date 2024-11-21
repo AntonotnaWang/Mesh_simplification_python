@@ -1,10 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-@author: Anton Wang
-"""
-
 import numpy as np
 import sys
+from mayavi import mlab
+import tqdm
+# import trimesh
 
 from class_3d_model import a_3d_model
 
@@ -20,10 +18,23 @@ class mesh_simplify(a_3d_model):
         self.t=threshold
         self.ratio=simplify_ratio
     
+    
+    def render_3d_model(self):
+        fig = mlab.figure(size=(800, 600))
+        mlab.points3d(self.points[:, 0], self.points[:, 1], self.points[:, 2], scale_factor=0.1)
+        for face in self.faces:
+            triangle = [self.points[vertex_index - 1] for vertex_index in face]
+            triangle.append(triangle[0])  # Ensure closed loop
+            xs, ys, zs = zip(*triangle)
+            mlab.plot3d(xs, ys, zs, tube_radius=None, line_width=0.2)
+
+        mlab.show()
+    
     # Select all valid pairs.
     def generate_valid_pairs(self):
         self.dist_pairs = []
-        for i in range(0, self.number_of_points):
+        # for i in range(0, self.number_of_points):
+        for i in tqdm(range(self.number_of_points), desc="Generate Valid Pairs"):
             current_point_location=i+1
             current_point=self.points[i,:]
             current_point_to_others_dist=(np.sum((self.points-current_point)**2,axis=1))**0.5
@@ -162,12 +173,14 @@ class mesh_simplify(a_3d_model):
                 print('Simplification: '+str(100*(self.number_of_points-self.new_point_count)/(self.number_of_points))+'%')
                 print('Remaining: '+str(self.number_of_points-self.new_point_count)+' points')
                 print('\n')
+
             
             self.new_point_count=self.new_point_count+1
             
         print('Simplification: '+str(100*(self.number_of_points-self.new_point_count)/(self.number_of_points+self.new_point_count))+'%')
         print('Remaining: '+str(self.number_of_points-self.new_point_count)+' points')
         print('End\n')
+
         
     def calculate_plane_equation_for_one_face(self, p1, p2, p3):
         # input: p1, p2, p3 numpy.array, shape: (3, 1) or (1,3) or (3, )
